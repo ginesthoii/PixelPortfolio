@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/e034cb8f-b740-491d-a8cd-2c6a0d295de7" width="600" height="300" >
+  <img src="https://github.com/user-attachments/assets/2f981e03-ecec-4ad7-956f-c7a1acbd3fce" width="900" height="600" >
 </p>
 
 
@@ -12,7 +12,7 @@ A gallery of bite-sized games brought to life
 <br>
 
  
-<h1 align="center">Space Game 🚀 </h1>
+<h1 align="center">Space Game  </h1>
 
 
 <p align="center">
