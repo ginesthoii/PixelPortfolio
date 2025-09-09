@@ -9,25 +9,27 @@
 <img width="635" height="437" alt="Image" src="https://github.com/user-attachments/assets/1baa0eae-f8bb-49c0-96a0-cc1dcdcfcc5b" />
 </h1>
 
+<br><br>
 
  <p align="center">
-  <img src="https://github.com/user-attachments/assets/f47191f3-4560-4cfc-aa64-fedce5b79f7c" alt="Terminal GIF" height="150" width="350"/>
+  <img src="https://github.com/user-attachments/assets/ef8dac03-36af-48c3-942c-347ea6f6a40d" alt="Terminal GIF" height="160" width="700"/>
 </p>
 
-
+<br>
+<br>
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/1bfbfdf9-7555-4b03-b3e9-f09b31f7145e" width="700" height="600" >
 </p>
 
-<br>
+<br><br>
 
 <h1 align="center"> ˖⁺‧₊˚✦ Space Game ✦˚₊‧⁺˖ </h1>
 
 <br>
 
 <p align="center">
-  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/games/space_game/space_game_gif.gif" alt="Terminal GIF" height="500" width="500"/>
+  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/games/space_game/space_game_gif.gif" alt="Terminal GIF" height="450" width="450"/>
 </p>
 
 <br>
