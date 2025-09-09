@@ -1,12 +1,32 @@
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e034cb8f-b740-491d-a8cd-2c6a0d295de7" width="600" height="300" >
+</p>
 
 
 
+<h1 align="center">
+A gallery of bite-sized games brought to life
+</h1>
 
-# Space Game 🚀
+<br>
 
-A simple Python space shooter game built with [pygame](https://www.pygame.org/).  
-Fly your spaceship, dodge enemies, and blast your way to the high score!
+ 
+<h1 align="center">Space Game 🚀 </h1>
+
+
+<p align="center">
+A simple Python space shooter game built with [pygame](https://www.pygame.org/) <br> Fly your spaceship, dodge enemies, and blast your way to the high score!
+</p>
+
+
+<br>
+
+<p align="center">
+  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/games/space_game/space_game_gif.gif" alt="Terminal GIF" height="320" width="620"/>
+</p>
+
+
 
 ---
 
