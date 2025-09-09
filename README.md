@@ -10,8 +10,6 @@
 </h1>
 
 
- <br>
-
  <p align="center">
   <img src="https://github.com/user-attachments/assets/f47191f3-4560-4cfc-aa64-fedce5b79f7c" alt="Terminal GIF" height="150" width="350"/>
 </p>
@@ -19,31 +17,26 @@
 
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/e11fe7e8-91a5-48e1-be56-4ac02f058dce" width="700" height="600" >
+  <img src="https://github.com/user-attachments/assets/1bfbfdf9-7555-4b03-b3e9-f09b31f7145e" width="700" height="600" >
 </p>
 
-
 <br>
-
 
 <h1 align="center"> ˖⁺‧₊˚✦ Space Game ✦˚₊‧⁺˖ </h1>
 
 <br>
 
+<p align="center">
+  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/games/space_game/space_game_gif.gif" alt="Terminal GIF" height="500" width="500"/>
+</p>
+
+<br>
 
 <p align="center">
 A simple Python space shooter game built with [pygame](https://www.pygame.org/) <br> Fly your spaceship, dodge enemies, and blast your way to the high score!
 </p>
 
 <br>
-
-<p align="center">
-  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/games/space_game/space_game_gif.gif" alt="Terminal GIF" height="400" width="450"/>
-</p>
-
-
-
-
 
 ---
 
