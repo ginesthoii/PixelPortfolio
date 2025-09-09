@@ -14,12 +14,11 @@
 ---
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/1e2f48a7-8606-43f0-ae78-1318473ddea9" width="800" height="200" >
+  <img src="https://github.com/user-attachments/assets/1e2f48a7-8606-43f0-ae78-1318473ddea9" width="700" height="200" >
 </p>
 
 --- 
 
-<br>
 <br>
 
 <p align="center">
