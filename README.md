@@ -3,7 +3,7 @@
   <img src="https://github.com/user-attachments/assets/b0337948-ba70-48b6-ae2b-4333bc0c96aa" width="900" height="600" >
 </p>
 
-
+<br>
 
 <h1 align="center">
 <img width="635" height="437" alt="Image" src="https://github.com/user-attachments/assets/1baa0eae-f8bb-49c0-96a0-cc1dcdcfcc5b" />
@@ -13,11 +13,10 @@
  <br>
 
  <p align="center">
-  <img src="https://github.com/user-attachments/assets/2688294c-e541-418f-8c53-efb75314a1ad" alt="Terminal GIF" height="50" width="150"/>
+  <img src="https://github.com/user-attachments/assets/f47191f3-4560-4cfc-aa64-fedce5b79f7c" alt="Terminal GIF" height="150" width="350"/>
 </p>
 
-<br>
-<br>
+
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/e11fe7e8-91a5-48e1-be56-4ac02f058dce" width="700" height="600" >
@@ -39,7 +38,7 @@ A simple Python space shooter game built with [pygame](https://www.pygame.org/) 
 <br>
 
 <p align="center">
-  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/games/space_game/space_game_gif.gif" alt="Terminal GIF" height="320" width="420"/>
+  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/games/space_game/space_game_gif.gif" alt="Terminal GIF" height="400" width="450"/>
 </p>
 
 
