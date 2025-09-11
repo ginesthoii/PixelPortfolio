@@ -14,7 +14,7 @@
 ---
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/1e2f48a7-8606-43f0-ae78-1318473ddea9" width="700" height="200" >
+  <img src="https://github.com/user-attachments/assets/1e2f48a7-8606-43f0-ae78-1318473ddea9" width="300" height="100" >
 </p>
 
 --- 
@@ -89,3 +89,43 @@ A simple Python space shooter game built with [pygame](https://www.pygame.org/) 
 
 
      
+---
+
+<br>
+
+<h1 align="center"> ˖⁺‧₊˚✦ Mini-Sly Cooper ✦˚₊‧⁺˖ </h1>
+
+<br>
+
+<p align="center">
+A simple game
+</p>
+
+<br>
+
+---
+
+<br>
+
+<h1 align="center"> ˖⁺‧₊˚✦ Mini-Tetris ✦˚₊‧⁺˖ </h1>
+
+<br>
+
+<p align="center">
+A simple game
+</p>
+
+---
+
+<br>
+
+<h1 align="center"> ˖⁺‧₊˚✦ Mini-Donkey Kong ✦˚₊‧⁺˖ </h1>
+
+<br>
+
+<p align="center">
+A simple game
+</p>
+
+
+---
