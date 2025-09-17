@@ -6,7 +6,7 @@
 <br>
 
 <h1 align="center">
-<img width="635" height="437" alt="Image" src="https://github.com/user-attachments/assets/1baa0eae-f8bb-49c0-96a0-cc1dcdcfcc5b" />
+<img width="435" height="437" alt="Image" src="https://github.com/user-attachments/assets/1baa0eae-f8bb-49c0-96a0-cc1dcdcfcc5b" />
 </h1>
 
 <br>
