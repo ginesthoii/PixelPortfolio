@@ -112,9 +112,13 @@ A simple Python space shooter game built with [pygame](https://www.pygame.org/) 
 
 <br>
 
+
 <p align="center">
-A simple game
+  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/games/arcade-tetris/Tetris%20demo.gif" alt="Tetris GIF" height="450" width="450"/>
 </p>
+
+
+<br>
 
 ---
 
