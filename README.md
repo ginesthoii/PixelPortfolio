@@ -111,7 +111,7 @@ A simple Python space shooter game built with [pygame](https://www.pygame.org/) 
 <br>
 
 <p align="center">
-  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/games/Snake%202.0/snake2.0.gif" alt="Snake 2.0 GIF" height="450" width="450"/>
+  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/games/Snake%202.0/Snake-Demo.gif" alt="Snake 2.0 GIF" height="450" width="450"/>
 </p>
 
 
