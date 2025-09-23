@@ -89,25 +89,6 @@ A simple Python space shooter game built with [pygame](https://www.pygame.org/) 
 
 <br>
 
-<h1 align="center"> ˖⁺‧₊˚✦ Snake 2.0 ✦˚₊‧⁺˖ </h1>
-
-<br>
-
-<p align="center">
-  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/games/Snake%202.0/snake2.0.gif" alt="Snake 2.0 GIF" height="450" width="450"/>
-</p>
-
-
----
-
-
-
-
-
-
-
-<br>
-
 <h1 align="center"> ˖⁺‧₊˚✦ Mini-Tetris ✦˚₊‧⁺˖ </h1>
 
 <br>
@@ -121,6 +102,21 @@ A simple Python space shooter game built with [pygame](https://www.pygame.org/) 
 <br>
 
 ---
+
+
+<br>
+
+<h1 align="center"> ˖⁺‧₊˚✦ Snake 2.0 ✦˚₊‧⁺˖ </h1>
+
+<br>
+
+<p align="center">
+  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/games/Snake%202.0/snake2.0.gif" alt="Snake 2.0 GIF" height="450" width="450"/>
+</p>
+
+
+---
+
 
 <br>
 
