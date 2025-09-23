@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Snake 2.0 — Combo & Dash</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:#0b0d0f;
+      --grid:#12161a;
+      --grid-2:#0e1317;
+      --snake:#19c37d;            /* primary green */
+      --snake-edge:#0e8f5a;       /* darker green edge */
+      --fruit:#d74d4d;            /* red apple */
+      --berry:#7b3fa3;            /* decoy berry (purple) */
+      --accent:#046e86;           /* your teal */
+      --hud:#d0e7df;              /* soft hud text */
+      --warning:#f2b705;
+    }
+    html,body{
+      height:100%; margin:0;
+      background: radial-gradient(1200px 800px at 20% 0%, #0f1318 0%, var(--bg) 60%);
+      color:var(--hud);
+      font: 16px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .wrap{
+      display:flex; flex-direction:column; gap:.5rem; align-items:center;
+    }
+    canvas{
+      image-rendering: pixelated;
+      border: 2px solid #232a31;
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.03);
+      background: linear-gradient(135deg, var(--grid) 0%, var(--grid-2) 100%);
+    }
+    .hud{
+      width: min(92vw, 560px);
+      display:flex; align-items:center; justify-content:space-between;
+      font-weight:600; letter-spacing:.4px;
+    }
+    .hud .left, .hud .right{ display:flex; gap:1.2rem; align-items:center; }
+    .pill{
+      padding: .35rem .6rem; border-radius: 10px;
+      background: rgba(255,255,255,.06);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+    .keys{ opacity:.8; font-weight:500; }
+    .watermark{
+      position:fixed; right:12px; bottom:10px; opacity:.35; font-size:.85rem;
+      user-select:none; pointer-events:none; letter-spacing:.5px;
+    }
+    .bar{
+      position:relative; width:120px; height:8px; border-radius:999px;
+      background: rgba(255,255,255,.06); overflow:hidden;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+    .bar > i{
+      position:absolute; left:0; top:0; bottom:0; width:0%;
+      background: linear-gradient(90deg, var(--accent), #19b0c3);
+    }
+    .note{ opacity:.75; font-size:.9rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hud">
+      <div class="left">
+        <div class="pill">Score: <span id="score">0</span></div>
+        <div class="pill">High: <span id="high">0</span></div>
+        <div class="pill">Streak ×<span id="mult">1</span></div>
+        <div class="bar" title="Dash stamina"><i id="stam"></i></div>
+      </div>
+      <div class="right">
+        <div class="keys pill">WASD / Arrows • Space = Dash • P = Pause • R = Restart</div>
+      </div>
+    </div>
+
+    <canvas id="game" width="560" height="560" aria-label="Snake game canvas" role="img"></canvas>
+    <div class="note">Tip: keep eating before the ring fades to build your combo. Berries (purple) are decoys.</div>
+  </div>
+  <div class="watermark">Snake 2.0</div>
+
+  <script>
+  // ====== Config (tweak freely) ======
+  const COLS = 28;            // grid columns
+  const ROWS = 28;            // grid rows
+  const TILE = 20;            // base tile size in CSS pixels
+  const STEP_BASE = 110;      // ms per step (lower = faster). speeds up slightly per fruit
+  const STEP_MIN = 55;        // cap speed-up
+  const SPEEDUP = 2.5;        // ms faster each fruit
+  const COMBO_WINDOW = 2000;  // time (ms) to chain next fruit and raise multiplier
+  const BERRY_RATE = 0.18;    // chance that a spawned fruit is a decoy berry
+  const DASH_COST = 0.28;     // stamina cost per second while dashing
+  const DASH_GAIN = 0.22;     // stamina recharge per second not dashing
+  const STAMINA_MAX = 1.0;
+
+  // Colors
+  const C = getComputedStyle(document.documentElement);
+  const color = name => C.getPropertyValue(name).trim();
+  const COLORS = {
+    snake: color('--snake'),
+    snakeEdge: color('--snake-edge'),
+    fruit: color('--fruit'),
+    berry: color('--berry'),
+    accent: color('--accent'),
+    hud: color('--hud'),
+    warn: color('--warning')
+  };
+
+  // ====== Canvas setup with HiDPI support ======
+  const canvas = document.getElementById('game');
+  const ctx = canvas.getContext('2d');
+  const DPR = Math.max(1, Math.floor(window.devicePixelRatio || 1));
+  function fitCanvas() {
+    const w = COLS * TILE, h = ROWS * TILE;
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    canvas.width = w * DPR;
+    canvas.height = h * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  fitCanvas();
+  addEventListener('resize', fitCanvas);
+
+  // ====== Utilities ======
+  const randInt = (min, max) => (min + Math.floor(Math.random() * (max - min + 1)));
+  const choice = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  function roundRect(x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r, y);
+    ctx.arcTo(x+w, y,   x+w, y+h, r);
+    ctx.arcTo(x+w, y+h, x,   y+h, r);
+    ctx.arcTo(x,   y+h, x,   y,   r);
+    ctx.arcTo(x,   y,   x+w, y,   r);
+    ctx.closePath();
+  }
+  function gridToPx(n){ return n * TILE; }
+
+  // ====== Game State ======
+  let last = 0, acc = 0, stepMs = STEP_BASE, paused = false, dead = false;
+  const scoreEl = document.getElementById('score');
+  const highEl  = document.getElementById('high');
+  const multEl  = document.getElementById('mult');
+  const stamEl  = document.getElementById('stam');
+
+  let highScore = +(localStorage.getItem('olivia_snake_high') || 0);
+  highEl.textContent = highScore;
+
+  const DIRS = {UP:[0,-1], DOWN:[0,1], LEFT:[-1,0], RIGHT:[1,0]};
+  let dir = DIRS.RIGHT, nextDir = dir;
+
+  const snake = {
+    cells: [{x: 6, y: 14}],
+    max: 4
+  };
+
+  // particles for fruit pickup and death
+  const particles = [];
+
+  // fruit object {x,y,type:'fruit'|'berry', born:ms}
+  let fruit = spawnFruit();
+
+  // combo system
+  let combo = 1;
+  let comboDeadline = 0;
+
+  // dash stamina (0..1)
+  let stamina = 1;
+  let dashing = false;
+
+  function spawnFruit(){
+    let spot;
+    do {
+      spot = { x: randInt(0, COLS-1), y: randInt(0, ROWS-1) };
+    } while (snake.cells.some(c => c.x === spot.x && c.y === spot.y));
+    return {
+      ...spot,
+      type: Math.random() < BERRY_RATE ? 'berry' : 'fruit',
+      born: performance.now()
+    };
+  }
+
+  // ====== Input ======
+  const keyDirs = {
+    ArrowUp: DIRS.UP,    KeyW: DIRS.UP,
+    ArrowDown: DIRS.DOWN,KeyS: DIRS.DOWN,
+    ArrowLeft: DIRS.LEFT,KeyA: DIRS.LEFT,
+    ArrowRight: DIRS.RIGHT,KeyD: DIRS.RIGHT
+  };
+  addEventListener('keydown', (e)=>{
+    if (e.code in keyDirs) {
+      const nd = keyDirs[e.code];
+      // block reversing
+      if (snake.cells.length > 1){
+        const [cx, cy] = dir;
+        if (nd[0] === -cx && nd[1] === -cy) return;
+      }
+      nextDir = nd;
+    } else if (e.code === 'Space') {
+      dashing = true;
+      e.preventDefault();
+    } else if (e.code === 'KeyP') {
+      paused = !paused;
+    } else if (e.code === 'KeyR') {
+      reset();
+    }
+  });
+  addEventListener('keyup', (e)=>{
+    if (e.code === 'Space') dashing = false;
+  });
+
+  // ====== Core loop ======
+  function tick(dt){
+    if (paused || dead) return;
+
+    // stamina update
+    const sdelta = (dashing && stamina > 0) ? -DASH_COST*dt/1000 : DASH_GAIN*dt/1000;
+    stamina = Math.max(0, Math.min(STAMINA_MAX, stamina + sdelta));
+    stamEl.style.width = (stamina*100).toFixed(1) + '%';
+    const dashBoost = (dashing && stamina>0) ? 1.8 : 1.0;
+
+    // grid step timing with optional dash
+    acc += dt * dashBoost;
+    while (acc >= stepMs) {
+      acc -= stepMs;
+      step(); // move one cell
+    }
+  }
+
+  function step(){
+    // apply nextDir
+    dir = nextDir;
+    const head = { ...snake.cells[0] };
+    head.x += dir[0];
+    head.y += dir[1];
+
+    // wrap
+    if (head.x < 0) head.x = COLS-1;
+    if (head.x >= COLS) head.x = 0;
+    if (head.y < 0) head.y = ROWS-1;
+    if (head.y >= ROWS) head.y = 0;
+
+    // collide with body?
+    if (snake.cells.some(c => c.x===head.x && c.y===head.y)) {
+      explode(head.x, head.y, COLORS.warn);
+      gameOver();
+      return;
+    }
+
+    snake.cells.unshift(head);
+    if (snake.cells.length > snake.max) snake.cells.pop();
+
+    // fruit?
+    if (head.x === fruit.x && head.y === fruit.y) {
+      // visual burst
+      const fcol = fruit.type === 'fruit' ? COLORS.fruit : COLORS.berry;
+      explode(head.x, head.y, fcol);
+
+      if (fruit.type === 'fruit') {
+        snake.max++;
+        // combo logic
+        const now = performance.now();
+        if (now <= comboDeadline) {
+          combo = Math.min(9, combo + 1);
+        } else {
+          combo = 1;
+        }
+        comboDeadline = now + COMBO_WINDOW;
+
+        // score
+        addScore(10 * combo);
+
+        // speed up a touch
+        stepMs = Math.max(STEP_MIN, stepMs - SPEEDUP);
+      } else {
+        // decoy berry: shrink (but not below 3)
+        snake.max = Math.max(3, snake.max - 2);
+        combo = 1;
+        comboDeadline = 0;
+        addScore(-5);
+      }
+      fruit = spawnFruit();
+    }
+  }
+
+  // ====== Score / Over ======
+  let score = 0;
+  function addScore(n){
+    score = Math.max(0, score + n);
+    scoreEl.textContent = score;
+    multEl.textContent = combo;
+    if (score > highScore){
+      highScore = score;
+      localStorage.setItem('olivia_snake_high', highScore);
+      highEl.textContent = highScore;
+    }
+  }
+  function gameOver(){
+    dead = true;
+    combo = 1; comboDeadline = 0;
+  }
+  function reset(){
+    score = 0; scoreEl.textContent = 0;
+    stepMs = STEP_BASE; paused = false; dead = false; acc = 0;
+    stamina = 1; dashing = false; stamEl.style.width = '100%';
+    dir = DIRS.RIGHT; nextDir = dir;
+    snake.cells = [{x:6,y:14}]; snake.max = 4;
+    fruit = spawnFruit();
+  }
+
+  // ====== Particles ======
+  function explode(gx, gy, col){
+    const cx = gridToPx(gx)+TILE/2, cy = gridToPx(gy)+TILE/2;
+    for (let i=0;i<10;i++){
+      particles.push({
+        x: cx, y: cy,
+        vx: (Math.random()-0.5)*120,
+        vy: (Math.random()-0.5)*120,
+        life: 280, age: 0, color: col
+      });
+    }
+  }
+  function updateParticles(dt){
+    for (let p of particles){
+      p.age += dt;
+      p.x += p.vx * dt/1000;
+      p.y += p.vy * dt/1000;
+      p.vy += 20 * dt/1000; // slight gravity
+    }
+    // prune
+    for (let i=particles.length-1;i>=0;i--){
+      if (particles[i].age >= particles[i].life) particles.splice(i,1);
+    }
+  }
+  function drawParticles(){
+    for (let p of particles){
+      const t = 1 - (p.age / p.life);
+      ctx.globalAlpha = Math.max(0, t);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(p.x-1, p.y-1, 2, 2);
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  // ====== Rendering ======
+  function drawGrid(){
+    // slight vignette + faint grid dots
+    ctx.save();
+    // grid dots
+    ctx.globalAlpha = .12;
+    for (let y=0;y<ROWS;y++){
+      for (let x=0;x<COLS;x++){
+        const px = x*TILE+TILE/2, py = y*TILE+TILE/2;
+        ctx.fillStyle = '#000';
+        ctx.fillRect(px, py, 1, 1);
+      }
+    }
+    ctx.restore();
+
+    // subtle highlight ring around fruit to show combo timer
+    if (comboDeadline){
+      const now = performance.now();
+      const t = Math.max(0, Math.min(1, (comboDeadline - now)/COMBO_WINDOW));
+      const r = Math.max(0, (TILE/2) + (1-t)*12);
+      const cx = fruit.x*TILE + TILE/2;
+      const cy = fruit.y*TILE + TILE/2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI*2);
+      ctx.strokeStyle = `rgba(4,110,134,${0.25+0.35*t})`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+  }
+
+  function drawSnake(){
+    // body
+    for (let i=snake.cells.length-1;i>=0;i--){
+      const c = snake.cells[i];
+      const px = c.x*TILE, py = c.y*TILE;
+      // inner
+      ctx.fillStyle = COLORS.snake;
+      roundRect(px+2, py+2, TILE-4, TILE-4, 5);
+      ctx.fill();
+      // edge
+      ctx.strokeStyle = COLORS.snakeEdge;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+    // head details (eyes)
+    const h = snake.cells[0];
+    if (h){
+      const hx = h.x*TILE, hy = h.y*TILE;
+      ctx.fillStyle = '#0b0d0f';
+      const [dx,dy] = dir;
+      const ex = hx + TILE/2 + (dx*4) + (dy? -4:0);
+      const ey = hy + TILE/2 + (dy*4) + (dx? -4:0);
+      ctx.beginPath();
+      ctx.arc(ex-3, ey-1, 1.5, 0, Math.PI*2);
+      ctx.arc(ex+3, ey+1, 1.5, 0, Math.PI*2);
+      ctx.fill();
+    }
+  }
+
+  function drawFruit(){
+    const f = fruit;
+    const px = f.x*TILE, py = f.y*TILE;
+    const t = (Math.sin(performance.now()/220)+1)/2; // 0..1
+    const s = 4 + t*3;
+
+    // pulsing background glow
+    ctx.save();
+    ctx.globalAlpha = 0.18 + 0.12*t;
+    ctx.fillStyle = f.type==='fruit' ? COLORS.fruit : COLORS.berry;
+    ctx.beginPath();
+    ctx.arc(px+TILE/2, py+TILE/2, 9+s*0.8, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+
+    // fruit body (rounded square)
+    ctx.fillStyle = f.type==='fruit' ? COLORS.fruit : COLORS.berry;
+    roundRect(px+4, py+4, TILE-8, TILE-8, 5);
+    ctx.fill();
+
+    // leaf / shine
+    ctx.fillStyle = COLORS.accent;
+    ctx.fillRect(px + TILE/2 - 1, py+3, 2, 4);
+    ctx.globalAlpha = .35;
+    ctx.fillStyle = '#fff';
+    roundRect(px+6, py+6, 4, 4, 2); ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  function drawHUDOverlay(){
+    if (paused || dead){
+      ctx.save();
+      ctx.fillStyle = 'rgba(0,0,0,.45)';
+      ctx.fillRect(0,0,canvas.width/DPR,canvas.height/DPR);
+      ctx.fillStyle = COLORS.hud;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '600 22px Inter, system-ui, sans-serif';
+      ctx.fillText(dead ? 'Game Over' : 'Paused', canvas.width/(2*DPR), canvas.height/(2*DPR)-14);
+      ctx.font = '500 14px Inter, system-ui, sans-serif';
+      ctx.fillStyle = 'rgba(255,255,255,.8)';
+      ctx.fillText('R = Restart • P = Pause • Space = Dash', canvas.width/(2*DPR), canvas.height/(2*DPR)+12);
+      ctx.restore();
+    }
+  }
+
+  // ====== Main RAF ======
+  function frame(ts){
+    const dt = Math.min(60, ts - last || 0);
+    last = ts;
+
+    tick(dt);
+    updateParticles(dt);
+
+    // draw
+    ctx.clearRect(0,0,canvas.width/DPR, canvas.height/DPR);
+    drawGrid();
+    drawFruit();
+    drawSnake();
+    drawParticles();
+    drawHUDOverlay();
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  </script>
+</body>
+</html>
