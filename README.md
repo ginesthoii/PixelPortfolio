@@ -86,19 +86,25 @@ A simple Python space shooter game built with [pygame](https://www.pygame.org/) 
      
 ---
 
+
 <br>
 
-<h1 align="center"> ˖⁺‧₊˚✦ Mini-Sly Cooper ✦˚₊‧⁺˖ </h1>
+<h1 align="center"> ˖⁺‧₊˚✦ Snake 2.0 ✦˚₊‧⁺˖ </h1>
 
 <br>
 
 <p align="center">
-A simple game
+  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/games/Snake%202.0/snake2.0.gif" alt="Snake 2.0 GIF" height="450" width="450"/>
 </p>
 
-<br>
 
 ---
+
+
+
+
+
+
 
 <br>
 
@@ -122,5 +128,20 @@ A simple game
 A simple game
 </p>
 
+
+---
+
+
+<br>
+
+<h1 align="center"> ˖⁺‧₊˚✦ Mini-Sly Cooper ✦˚₊‧⁺˖ </h1>
+
+<br>
+
+<p align="center">
+A simple game
+</p>
+
+<br>
 
 ---
