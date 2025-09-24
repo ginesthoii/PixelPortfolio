@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2048</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,400,800" rel="stylesheet">
+  <!-- CSS goes here -->
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="game">
+    <div class="head">
+      <div class="a">
+        2048
+        <button class="info" onclick="toggleInfo()">i</button>
+        <button id="repeat" class="info repeat" onclick="resetGame()">↻</button>
+      </div>
+      <div class="score">Score<br/><span id="value">0</span></div>
+    </div>
+
+    <div class="description" id="description">
+      How to play:<br/><br/>
+      Use your arrow keys or swipe to slide the tiles.<br/>
+      Tiles with the same value merge. Reach 2048 to win!<br/><br/>
+      The score is the sum of the merged tiles.
+      <br/><br/><span>_______________________________</span>
+    </div>
+
+    <!-- Board background and animated tile stage -->
+    <div id="board">
+      <div id="grid"></div>
+    </div>
+  </div>
+
+  <div id="status"></div>
+
+  <!-- JS goes last -->
+  <script src="./script.js"></script>
+</body>
+</html>

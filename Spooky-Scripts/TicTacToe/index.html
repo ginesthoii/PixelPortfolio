@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tic Tac Toe</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="title">
+    <h1>Tic Tac Toe</h1>
+  </div>
+
+<!-- Board + Side Panel -->
+<div class="game-wrap">
+  <div class="board-wrap">
+    <div class="pumpkin-wrap">
+      <div id="board">
+        <div class="square" id="square0"></div>
+        <div class="square" id="square1"></div>
+        <div class="square" id="square2"></div>
+        <div class="square" id="square3"></div>
+        <div class="square" id="square4"></div>
+        <div class="square" id="square5"></div>
+        <div class="square" id="square6"></div>
+        <div class="square" id="square7"></div>
+        <div class="square" id="square8"></div>
+      </div>
+    </div>
+    <div id="statusMessage">X's turn!</div>
+  </div>
+
+  <!-- Side panel: scorecard (injected by JS) + buttons -->
+  <div id="endGame">
+    <input type="button" value="Restart" id="restartButton" onclick="restartButton()"/>
+    <input type="button" value="Reset Scores" id="resetScoresButton" onclick="resetScores()"/>
+  </div>
+</div>
+
+  <script src="main.js"></script>
+</body>
+</html>
