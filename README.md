@@ -6,11 +6,6 @@
 <img width="435" height="437" alt="Image" src="https://github.com/user-attachments/assets/1baa0eae-f8bb-49c0-96a0-cc1dcdcfcc5b" />
 </h1>
 
-<br>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/1e2f48a7-8606-43f0-ae78-1318473ddea9" width="300" height="100" >
-</p>
 
 --- 
 
@@ -106,3 +101,7 @@ A simple game
 <br>
 
 ---
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1e2f48a7-8606-43f0-ae78-1318473ddea9" width="200" height="75" >
+</p>
