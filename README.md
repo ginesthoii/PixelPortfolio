@@ -64,6 +64,20 @@
 
 ---
 
+<br>
+
+<h1 align="center"> ˖⁺‧₊˚✦ Spooky PacMan ✦˚₊‧⁺˖ </h1>
+
+<br>
+
+<p align="center">
+  <img src="" alt="Spooky PacMan GIF" height="450" width="450"/>
+</p>
+
+<br>
+
+---
+
 
 <br>
 
@@ -78,6 +92,21 @@
 <br>
 
 ---
+
+<br>
+
+<h1 align="center"> ˖⁺‧₊˚✦ 2048 ✦˚₊‧⁺˖ </h1>
+
+<br>
+
+<p align="center">
+  <img src="" alt="2048 GIF" height="450" width="450"/>
+</p>
+
+<br>
+
+---
+
 
 <br>
 
@@ -112,7 +141,7 @@
 <br>
 
 <p align="center">
-A simple game
+  <img src="" alt=" GIF" height="450" width="450"/>
 </p>
 
 
@@ -126,7 +155,7 @@ A simple game
 <br>
 
 <p align="center">
-A simple game
+  <img src="" alt=" GIF" height="450" width="450"/>
 </p>
 
 <br>
