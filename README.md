@@ -32,7 +32,38 @@
 
 <br>
 
+
 ---
+
+<br>
+
+<h1 align="center"> ˖⁺‧₊˚✦ Spooky Tic Tac Toe ✦˚₊‧⁺˖ </h1>
+
+<br>
+
+<p align="center">
+  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/Spooky-Scripts/TicTacToe/SpookyTicTacToe-Demo.gif" alt="Spooky TicTacToe GIF" height="450" width="450"/>
+</p>
+
+<br>
+
+---
+
+
+<br>
+
+<h1 align="center"> ˖⁺‧₊˚✦ Spooky 2048 ✦˚₊‧⁺˖ </h1>
+
+<br>
+
+<p align="center">
+  <img src="" alt="Spooky 2048 GIF" height="450" width="450"/>
+</p>
+
+<br>
+
+---
+
 
 <br>
 
