@@ -1,0 +1,122 @@
+/* Background */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: #000;
+  background-image: url("images/opal-background.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Title */
+#title h1 {
+  text-align: center;
+  font-size: 58px;
+  font-weight: 200;
+  margin: 20px 0 30px;
+}
+
+/* Layout */
+.game-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 0 16px;
+}
+
+.board-wrap { display:flex; flex-direction:column; align-items:center; }
+
+/* Board: opal grid lines via transparent gaps */
+#board {
+  width: 450px; height: 450px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;          /* these gaps = grid lines showing opal */
+  background: transparent;
+  border-radius: 12px;
+}
+
+/* Squares opaque for readability */
+.square {
+  width: 140px; height: 140px;
+  border: none;
+  background: #fff;
+  font-size: 100px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+.square:hover { background: #fdfdfd; }
+
+/* Status under board */
+#statusMessage {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 200;
+  margin-top: 18px;
+}
+
+/* Side panel (scorecard + buttons) */
+#endGame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-width: 230px;
+}
+
+/* Scorecard – frosted/opal */
+#scoreCard {
+  background: linear-gradient(135deg,
+    rgba(255,255,255,.95),
+    rgba(245,245,255,.75),
+    rgba(230,230,245,.55)
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 30px rgba(0,0,0,.12),
+              0 0 0 1px rgba(255,255,255,.5) inset;
+  padding: 14px 20px;
+  border-radius: 16px;
+ text-align: center;
+  color: #000;
+  font-size: 26px;
+  font-weight: 200;
+  width: 100%;
+}
+
+/* Buttons match the frosted look */
+#restartButton,
+#resetScoresButton {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 200;
+  text-align: center;
+  height: 48px;
+  width: 100%;
+  border: 0;
+  border-radius: 24px;
+  cursor: pointer;
+  background: linear-gradient(135deg,
+    rgba(255,255,255,.95),
+    rgba(245,245,255,.75),
+    rgba(230,230,245,.55)
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 30px rgba(0,0,0,.12),
+              0 0 0 1px rgba(255,255,255,.5) inset;
+  transition: transform .08s ease;
+}
+#restartButton:hover, #resetScoresButton:hover { transform: translateY(-1px); }
+#restartButton:active, #resetScoresButton:active { transform: translateY(0); }
+
+/* Responsive */
+@media (max-width: 680px) {
+  .game-wrap { flex-direction: column; align-items: center; }
+  #board { width: 330px; height: 330px; grid-gap: 8px; }
+  .square { width: 106px; height: 106px; font-size: 72px; }
+  #endGame { width: 100%; max-width: 330px; }
+}
