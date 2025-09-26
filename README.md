@@ -130,6 +130,19 @@
 
 <br>
 
+<h1 align="center"> ˖⁺‧₊˚✦ Crystal Ball Maze ✦˚₊‧⁺˖ </h1>
+
+<br>
+
+<p align="center">
+  <img src="https://github.com/ginesthoii/PixelPortfolio/blob/main/Spooky-Scripts/Maze/Maze-Demo.gif" alt="Maze 2.0 GIF" height="500" width="500"/>
+</p>
+
+
+---
+
+<br>
+
 <h1 align="center"> ˖⁺‧₊˚✦ Mini-Donkey Kong ✦˚₊‧⁺˖ </h1>
 
 <br>
